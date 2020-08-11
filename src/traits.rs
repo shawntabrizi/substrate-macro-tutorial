@@ -1,7 +1,7 @@
 pub trait OnInitialize {
-    fn on_initialize();
+	fn on_initialize();
 }
 
 pub trait OnFinalize {
-    fn on_finalize();
+	fn on_finalize();
 }
