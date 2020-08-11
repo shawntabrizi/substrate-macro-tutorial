@@ -53,7 +53,7 @@ macro_rules! decl_module {
         pub struct $module {}
 
         impl $module {
-            $(rest)*
+            $($rest)*
         }
 
         impl $crate::traits::OnInitialize for $module {

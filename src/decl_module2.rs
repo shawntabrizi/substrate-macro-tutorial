@@ -84,12 +84,12 @@ macro_rules! decl_module2 {
 		pub struct $module:ident
 		{ $( $on_initialize:tt )* }
 		{ $( $on_finalize:tt )* }
-		$($rest::tt)*
+		$($rest:tt)*
 	) => {
 		pub struct $module {}
 
 		impl $module {
-			$(rest)*
+			$($rest)*
 		}
 
 		impl $crate::traits::OnInitialize for $module {
