@@ -3,7 +3,7 @@ macro_rules! decl_module2 {
 	// entry point
 	(
 		pub struct $module:ident {
-		$($rest:tt)*
+			$($rest:tt)*
 		}
 	) => {
 		$crate::decl_module2!(@parse
@@ -84,8 +84,11 @@ macro_rules! decl_module2 {
 		pub struct $module:ident
 		{ $( $on_initialize:tt )* }
 		{ $( $on_finalize:tt )* }
+		$($rest::tt)*
 	) => {
-		pub struct $module {}
+		pub struct $module {
+			$($rest)*
+		}
 
 		impl $crate::traits::OnInitialize for $module {
 			$( $on_initialize )*

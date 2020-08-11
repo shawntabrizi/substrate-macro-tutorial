@@ -22,10 +22,23 @@ fn decl_module_works() {
         }
     );
 
+    decl_module!(
+        pub struct Module3 {
+            fn on_initialize() {
+                println!("Hello!");
+            }
+
+            fn other_function() {
+                println!("This is a different function");
+            }
+        }
+    );
+
     use crate::traits::OnInitialize;
 
     Module1::on_initialize();
     Module2::on_initialize();
+    Module3::other_function();
 }
 
 #[test]

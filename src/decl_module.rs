@@ -50,8 +50,9 @@ macro_rules! decl_module {
         $($rest:tt)*
 
     ) => {
-        pub struct $module {}
-        $($rest)*
+        pub struct $module {
+            $($rest)*
+        }
 
         impl $crate::traits::OnInitialize for $module {
             $( $on_initialize )*
