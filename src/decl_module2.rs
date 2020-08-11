@@ -52,6 +52,7 @@ macro_rules! decl_module2 {
 		pub struct $module:ident
 		{ $( $on_initialize:tt )* }
 		{} //on_finalize
+		$($rest:tt)*
 	) => {
 		$crate::decl_module2!(@parse
 			pub struct $module
@@ -59,6 +60,7 @@ macro_rules! decl_module2 {
 			{
 				fn on_finalize() { println!("On Finalize Not Implemented!"); }
 			}
+			$($rest)*
 		);
 	};
 	// on_initialize is not defined
@@ -66,6 +68,7 @@ macro_rules! decl_module2 {
 		pub struct $module:ident
 		{} //on_initialize
 		{ $( $on_finalize:tt )* }
+		$($rest:tt)*
 	) => {
 		$crate::decl_module2!(@parse
 			pub struct $module
@@ -73,6 +76,7 @@ macro_rules! decl_module2 {
 				fn on_initialize() { println!("On Initialize Not Implemented!"); }
 			}
 			{ $( $on_finalize )* }
+			$($rest)*
 		);
 	};
 	// on_initialize and on_finalize is 100% captured, so we can implement the traits
