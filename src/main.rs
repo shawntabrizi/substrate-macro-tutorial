@@ -35,7 +35,23 @@ fn decl_module2_works() {
     );
 
     decl_module2!(
-        pub struct Module2 {}{}{
+        pub struct Module2 {
+            fn on_finalize() {
+                println!("Final Hello!");
+            }
+        }
+    );
+
+    decl_module2!(
+        pub struct Module3 {
+            fn on_initialize() {
+                println!("Initial Hello!");
+            }
+        }
+    );
+
+    decl_module2!(
+        pub struct Module4 {
             fn on_initialize() {
                 println!("Initial Hello!");
             }
@@ -53,4 +69,10 @@ fn decl_module2_works() {
 
     Module2::on_initialize();
     Module2::on_finalize();
+
+    Module3::on_initialize();
+    Module3::on_finalize();
+
+    Module4::on_initialize();
+    Module4::on_finalize();
 }

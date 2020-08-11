@@ -2,15 +2,27 @@ pub use crate::traits::OnInitialize;
 
 #[macro_export]
 macro_rules! decl_module {
-    // on_initialize is defined
+    // entry point
     (
+        pub struct $module:ident {
+            $($rest:tt)*
+        }
+    ) => {
+        $crate::decl_module!(@parse
+            pub struct $module
+            {}
+            $($rest)*
+        );
+    };
+    // on_initialize is defined
+    (@parse
         pub struct $module:ident
         {} // on_initialize
         fn on_initialize( $( $param_name:ident : $param:ty ),* $(,)? ) { $( $impl:tt )* }
         $($rest:tt)*
     ) => {
-        $crate::decl_module!(
-            pub struct $module:ident
+        $crate::decl_module!(@parse
+            pub struct $module
             {
                 fn on_initialize( $( $param_name : $param ),* ) { $( $impl )* }
             }
@@ -18,12 +30,12 @@ macro_rules! decl_module {
         );
     };
     // on_initialize is not defined
-    (
+    (@parse
         pub struct $module:ident
 		{} //on_initialize
 		$($rest:tt)*
     ) => {
-        $crate::decl_module!(
+        $crate::decl_module!(@parse
             pub struct $module
             {
                 fn on_initialize() { println!("Not Implemented!"); }
@@ -32,7 +44,7 @@ macro_rules! decl_module {
         );
     };
     // on_initialize is 100% captured, so we can implement the trait
-    (
+    (@parse
         pub struct $module:ident
         { $( $on_initialize:tt )* }
         $($rest:tt)*
