@@ -9,7 +9,7 @@ macro_rules! decl_module2 {
 		$($rest:tt)*
 	) => {
 		$crate::decl_module2!(
-			pub struct $module:ident
+			pub struct $module
 			{
 				fn on_initialize( $( $param_name : $param ),* ) { $( $impl )* }
 			}
@@ -42,7 +42,7 @@ macro_rules! decl_module2 {
 		$($rest:tt)*
 	) => {
 		$crate::decl_module2!(
-			pub struct $module:ident
+			pub struct $module
 			{ $( $on_initialize )* }
 			{
 				fn on_finalize( $( $param_name : $param ),* ) { $( $impl )* }
